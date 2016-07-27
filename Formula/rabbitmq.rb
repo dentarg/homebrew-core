@@ -6,7 +6,7 @@ class Rabbitmq < Formula
 
   bottle :unneeded
 
-  depends_on "erlang"
+  depends_on "erlang-r18"
   depends_on "simplejson" => :python if MacOS.version <= :leopard
 
   def install
@@ -20,7 +20,7 @@ class Rabbitmq < Formula
     # Correct SYS_PREFIX for things like rabbitmq-plugins
     inreplace sbin/"rabbitmq-defaults" do |s|
       s.gsub! "SYS_PREFIX=${RABBITMQ_HOME}", "SYS_PREFIX=#{HOMEBREW_PREFIX}"
-      erlang = Formula["erlang"]
+      erlang = Formula["erlang-r18"]
       s.gsub! "CLEAN_BOOT_FILE=start_clean", "CLEAN_BOOT_FILE=#{erlang.opt_lib/"erlang/bin/start_clean"}"
       s.gsub! "SASL_BOOT_FILE=start_sasl", "SASL_BOOT_FILE=#{erlang.opt_lib/"erlang/bin/start_clean"}"
     end
